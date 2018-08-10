@@ -78,6 +78,12 @@ class App extends PureComponent {
     });
   }
 
+  handleState = state => {
+    this.setState({
+      listMarkers: state
+    }); //[state]: state
+  }
+
   render() {
     return (
       <div className="container">
@@ -91,6 +97,7 @@ class App extends PureComponent {
             <ListMarkers 
               listMarkers={this.state.listMarkers}
               handleClick={this.deleteMarker}
+              handleState={this.handleState}
             />
           </div>
           <div className="col-7">

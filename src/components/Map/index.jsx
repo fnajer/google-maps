@@ -31,6 +31,9 @@ class YandexMap extends PureComponent {
                   hintContent: marker.id,
                   balloonContent: `Beautiful marker #${marker.id}`,
                 }}
+                options={{
+                  draggable: true,
+                }}
               />
             ))
           }

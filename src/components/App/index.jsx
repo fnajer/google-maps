@@ -66,14 +66,14 @@ class App extends PureComponent {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-3 ml-auto">
+          <div className="col-4 ml-auto">
             <MarkerInput
               cords={this.state.cords}
               handleInputChange={this.handleInputChange}
               handleInputSumbit={this.handleInputSumbit}
             />
             <ListMarkers 
-            
+              listMarkers={this.state.listMarkers}
             />
           </div>
           <div className="col-7">

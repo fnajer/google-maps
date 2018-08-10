@@ -1,15 +1,27 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-const ListMarkers = () => {
-  return (
-    <div>
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-      </ul>
-    </div>
-  );
-};
+class ListMarkers extends PureComponent {
+  render() {
+    return (
+      <div>
+        <ul className="list-group">
+          {
+            this.props.listMarkers.map(marker => (
+              <li 
+                className="d-flex list-group-item list-group-item-dark justify-content-space-between align-items-center"
+                key={marker.id}
+              >
+                Point of routes {marker.id}
+                <button
+                  className="badge badge-primary badge-pill"
+                >X</button>
+              </li> 
+            ))
+          }
+        </ul>
+      </div>
+    );
+  }
+}
 
 export default ListMarkers;

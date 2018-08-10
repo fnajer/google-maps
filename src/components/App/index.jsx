@@ -122,10 +122,12 @@ class App extends PureComponent {
     });
   }
 
-  handleState = state => {
+  handleState = listMarkers => {
+    const polyline = this.getPolyline(listMarkers);
     this.setState({
-      listMarkers: state
-    }); //[state]: state
+      listMarkers,
+      polyline,
+    }); //[state]: state (типо перегрузка. что б можно было любой аргумент вызывать для change state)
   }
 
   render() {

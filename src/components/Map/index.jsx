@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 
-const YandexMap = (props) => (
+const YandexMap = ({ listMarkers }) => (
   <YMaps>
     <Map
       state={{ 
@@ -10,14 +10,19 @@ const YandexMap = (props) => (
       }}
       width="400px"
       height="400px"
-    >
-      <Placemark
-        geometry={{ coordinates: [55.75, 37.57] }}
-        properties={{
-          hintContent: 'Значок Алексей',
-          balloonContent: 'Beautiful marker'
-        }}
-      />
+    >{console.log(listMarkers[0])}
+      {
+        listMarkers.map(marker => (
+          <Placemark
+            key={marker.id}
+            geometry={{ coordinates: marker.coordinates }}
+            properties={{
+              hintContent: 'Значок Алексей',
+              balloonContent: 'Beautiful marker'
+            }}
+          />
+        ))
+      }
     </Map>
   </YMaps>
 )

@@ -9,18 +9,12 @@ class App extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-5">
+          <div className="col-3 ml-auto">
             <MarkerInput />
             <ListMarkers />
           </div>
           <div className="col-7">
-            <Map 
-              isMarkerShown
-              googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS90_Zy1Nhua_DFQeIAJzRBPV_YQt_7qY"
-              loadingElement={<div style={{ height: `100%` }} />}
-              containerElement={<div style={{ height: `300px` }} />}
-              mapElement={<div style={{ height: `100%` }} />}
-            />
+            <Map />
           </div>
         </div>
       </div>

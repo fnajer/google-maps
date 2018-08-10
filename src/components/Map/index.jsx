@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { YMaps, Map, Placemark } from "react-yandex-maps";
 
-const Map = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
-  >
-    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
-  </GoogleMap>
-))
+const YandexMap = (props) => (
+  <YMaps>
+    <Map
+      state={{ 
+        center: [55.76, 37.64], 
+        zoom: 10 
+      }}
+      width="400px"
+      height="400px"
+    >
+      <Placemark
+        geometry={{ coordinates: [55.75, 37.57] }}
+        properties={{
+          hintContent: 'Значок Алексей',
+          balloonContent: 'Beautiful marker'
+        }}
+      />
+    </Map>
+  </YMaps>
+)
 
-// class Map extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state =  {};
-//   }
-//   render() {
-//     return (
-//       <div className="">
-        
-//       </div>
-//     );
-//   }
-// }
-
-export default Map;
+export default YandexMap;

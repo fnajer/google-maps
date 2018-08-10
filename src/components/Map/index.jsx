@@ -6,62 +6,31 @@ class YandexMap extends PureComponent {
     super(props);
     
     this.state = {
-      bounds: null,
-      collection: null,
-      ymaps: null,
+      
     };
   }
 
-  handleInstance(map) {
-    //console.log(map);
-    // if (this.state.collection) {
-    //   map.setBounds(this.state.collection.getBounds());
-    // }
-  }
-
-  addToCollection(marker) {
-    if (this.state.collection) {
-      this.state.collection.add(marker);
-
-      this.setState({
-        bounds: this.state.collection.getBounds(),
-      });
-    }
-   console.log(marker);
-   
-  }
-
-  createCollection(ymaps) {
-    const collection = new ymaps.GeoObjectCollection();
-console.log(ymaps);
-    this.setState({
-      ymaps: ymaps
-    });
-  }
-
   render() {
+    const { listMarkers } = this.props;
     return (
-      <YMaps instanceRef={(ymaps) => this.createCollection(ymaps)}>
+      <YMaps>
         <Map
           state={{ 
-            center: this.props.listMarkers[this.props.listMarkers.length - 1].coordinates, //[55.76, 37.64]
+            center: listMarkers.length > 0 ? listMarkers[listMarkers.length - 1].coordinates : [55.76, 37.64],
             zoom: 9,
-            bounds: this.state.bounds,
           }}
           width="400px"
           height="400px"
-          instanceRef={(maps) => this.handleInstance(maps)}
         >
           {
-            this.props.listMarkers.map(marker => (
+            listMarkers.map(marker => (
               <Placemark
                 key={marker.id}
                 geometry={{ coordinates: marker.coordinates }}
                 properties={{
-                  hintContent: 'Значок Алексей',
+                  hintContent: marker.id,
                   balloonContent: 'Beautiful marker',
                 }}
-                instanceRef={(marker) => this.addToCollection(marker)}
               />
             ))
           }

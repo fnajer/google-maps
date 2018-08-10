@@ -35,7 +35,7 @@ class App extends PureComponent {
     }
 
     const newMarker = {
-      id: listMarkers[listMarkers.length - 1].id + 1,
+      id: listMarkers.length > 0 ? listMarkers[listMarkers.length - 1].id + 1 : 0,
       coordinates: cords,
     };
 
@@ -62,6 +62,22 @@ class App extends PureComponent {
     return arrCords;
   }
 
+  deleteMarker = i => {
+    let listMarkers = [...this.state.listMarkers];
+    //listMarkers.splice(i, 1);
+    listMarkers.forEach((marker, index) => {
+      if (marker.id === i) {
+        listMarkers.splice(index, 1);
+
+        this.setState({
+          listMarkers
+        });
+
+        return 0;
+      }
+    });
+  }
+
   render() {
     return (
       <div className="container">
@@ -74,6 +90,7 @@ class App extends PureComponent {
             />
             <ListMarkers 
               listMarkers={this.state.listMarkers}
+              handleClick={this.deleteMarker}
             />
           </div>
           <div className="col-7">

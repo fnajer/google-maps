@@ -8,12 +8,14 @@ class ListMarkers extends PureComponent {
           {
             this.props.listMarkers.map(marker => (
               <li 
-                className="d-flex list-group-item list-group-item-dark justify-content-space-between align-items-center"
+                className="d-flex list-group-item list-group-item-dark justify-content-between align-items-center"
                 key={marker.id}
               >
                 Point of routes {marker.id}
+
                 <button
                   className="badge badge-primary badge-pill"
+                  onClick={() => this.props.handleClick(marker.id)}
                 >X</button>
               </li> 
             ))

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import MarkerInput from '../MarkerInput';
 import ListMarkers from '../ListMarkers';
 import Map from '../Map';
 
-class App extends Component {
+class App extends PureComponent {
   constructor() {
     super();
 

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { YMaps, Map, Placemark } from "react-yandex-maps";
+import { YMaps, Map, Placemark, Polyline } from "react-yandex-maps";
 
 class YandexMap extends PureComponent {
   constructor(props) {
@@ -11,7 +11,7 @@ class YandexMap extends PureComponent {
   }
 
   render() {
-    const { listMarkers } = this.props;
+    const { listMarkers, polyline, handleDragMarkers } = this.props;
     return (
       <YMaps>
         <Map
@@ -34,9 +34,20 @@ class YandexMap extends PureComponent {
                 options={{
                   draggable: true,
                 }}
+                //onGeometryChange={handleDragMarkers}
+                onDragEnd={(event) => handleDragMarkers(event, marker.id)}
               />
             ))
           }
+          <Polyline
+            geometry={{
+              coordinates: polyline,
+            }}
+            options={{
+              strokeColor: '#000000',
+              strokeWidth: 4,
+            }}
+          />
         </Map>
       </YMaps>
     );

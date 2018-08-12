@@ -2,23 +2,18 @@ import React, { PureComponent } from 'react';
 import { YMaps, Map, Placemark, Polyline } from "react-yandex-maps";
 
 class YandexMap extends PureComponent {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      
-    };
-  }
 
   render() {
     const { listMarkers, polyline, handleDragMarkers } = this.props;
+    const mapState = {
+      center: listMarkers.length > 0 ? listMarkers[listMarkers.length - 1].coordinates : [55.76, 37.64],
+      zoom: 9
+    };
+
     return (
       <YMaps>
         <Map
-          state={{ 
-            center: listMarkers.length > 0 ? listMarkers[listMarkers.length - 1].coordinates : [55.76, 37.64],
-            zoom: 9,
-          }}
+          state={mapState}
           width="400px"
           height="400px"
         >

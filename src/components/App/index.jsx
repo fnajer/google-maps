@@ -25,29 +25,6 @@ class App extends PureComponent {
       cords: event.target.value,
     });
   }
-  
-  handleDragMarkers = (event, id) => {
-    event.stopPropagation();
-    const newCords = event.originalEvent.target.geometry._coordinates;
-
-    let listMarkers = [...this.state.listMarkers];
-    listMarkers.some((marker, index) => {
-      if (marker.id === id) {
-        listMarkers.splice(index, 1, {
-          id: id,
-          coordinates: newCords,
-        });
-
-        this.setState({
-          listMarkers,
-        });
-
-        return true;
-      }
-      return false;
-    });
-    return 0;
-  }
 
   handleInputSumbit = event => {
     event.preventDefault();
@@ -99,14 +76,6 @@ class App extends PureComponent {
     return arrCords;
   }
 
-  getPolyline = listMarkers => {
-    const polyline = listMarkers.map(marker => {
-      return marker.coordinates;
-    });
-
-    return polyline;
-  }
-
   deleteMarker = id => {
     let listMarkers = [...this.state.listMarkers];
 
@@ -148,8 +117,7 @@ class App extends PureComponent {
           <div className="col-7">
             <Map 
               listMarkers={this.state.listMarkers}
-              getPolyline={this.getPolyline}
-              handleDragMarkers={this.handleDragMarkers}
+              handleState={this.handleState}
             />
           </div>
         </div>

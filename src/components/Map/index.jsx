@@ -3,8 +3,37 @@ import { YMaps, Map, Placemark, Polyline } from "react-yandex-maps";
 
 class YandexMap extends PureComponent {
 
+  handleDragMarkers = (event, id) => {
+    event.stopPropagation();
+    const newCords = event.originalEvent.target.geometry._coordinates;
+
+    let listMarkers = [...this.props.listMarkers];
+    listMarkers.some((marker, index) => {
+      if (marker.id === id) {
+        listMarkers.splice(index, 1, {
+          id: id,
+          coordinates: newCords,
+        });
+
+        this.props.handleState(listMarkers);
+
+        return true;
+      }
+      return false;
+    });
+    return 0;
+  }
+
+  getPolyline = listMarkers => {
+    const polyline = listMarkers.map(marker => {
+      return marker.coordinates;
+    });
+
+    return polyline;
+  }
+
   render() {
-    const { listMarkers, getPolyline, handleDragMarkers } = this.props;
+    const { listMarkers } = this.props;
     const mapState = {
       center: listMarkers.length > 0 ? listMarkers[listMarkers.length - 1].coordinates : [55.76, 37.64],
       zoom: 9
@@ -30,13 +59,13 @@ class YandexMap extends PureComponent {
                   draggable: true,
                 }}
                 //onGeometryChange={handleDragMarkers}
-                onDragEnd={(event) => handleDragMarkers(event, marker.id)}
+                onDragEnd={(event) => this.handleDragMarkers(event, marker.id)}
               />
             ))
           }
           <Polyline
             geometry={{
-              coordinates: getPolyline(listMarkers),
+              coordinates: this.getPolyline(listMarkers),
             }}
             options={{
               strokeColor: '#000000',

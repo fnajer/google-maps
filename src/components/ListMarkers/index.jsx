@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+
 import ItemList from '../ItemList';
-
-
-
 
 class ListMarkers extends PureComponent {
   getListStyle = isDraggingOver => ({
@@ -22,7 +20,7 @@ class ListMarkers extends PureComponent {
     if (!result.destination) {
       return;
     }
-    
+
     const items = this.reorder(
       this.props.listMarkers,
       result.source.index,

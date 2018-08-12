@@ -4,6 +4,8 @@ import MarkerInput from '../MarkerInput';
 import ListMarkers from '../ListMarkers';
 import Map from '../Map';
 
+/* TODO: Refactoring and Optimization preformance */
+
 class App extends PureComponent {
   constructor() {
     super();
@@ -23,10 +25,9 @@ class App extends PureComponent {
       cords: event.target.value,
     });
   }
-
+  
   handleDragMarkers = (event, i) => {//.originalEvent.originalEvent.originalEvent.newCoordinates
     event.stopPropagation();
-    console.log(event.originalEvent.target.geometry._coordinates);
     const newCords = event.originalEvent.target.geometry._coordinates;
 
     let listMarkers = [...this.state.listMarkers];
@@ -63,7 +64,7 @@ class App extends PureComponent {
     }
 
     const newMarker = {
-      id: listMarkers.length > 0 ? listMarkers[listMarkers.length - 1].id + 1 : 0,
+      id: this.getMarkerId(listMarkers.length),
       coordinates: cords,
     };
 
@@ -75,6 +76,15 @@ class App extends PureComponent {
       listMarkers,
       polyline,
     }));
+  }
+
+  getMarkerId(lengthList) {
+    if (lengthList > 0) {
+      App.maxId += 1;
+    } else {
+      App.maxId = 0;
+    }
+    return App.maxId;
   }
 
   checkCords(cords) {
@@ -158,5 +168,6 @@ class App extends PureComponent {
     );
   }
 }
+App.maxId = 0;
 
 export default App;

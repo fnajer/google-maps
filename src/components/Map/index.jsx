@@ -28,7 +28,7 @@ class YandexMap extends PureComponent {
                 key={marker.id}
                 geometry={{ coordinates: marker.coordinates }}
                 properties={{
-                  hintContent: marker.id,
+                  hintContent: `#${marker.id}`,
                   balloonContent: `Beautiful marker #${marker.id}`,
                 }}
                 options={{

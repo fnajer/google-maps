@@ -22,7 +22,7 @@ class ListMarkers extends PureComponent {
     if (!result.destination) {
       return;
     }
-    console.log(result);
+    
     const items = this.reorder(
       this.props.listMarkers,
       result.source.index,

@@ -5,6 +5,7 @@ import ListMarkers from '../ListMarkers';
 import Map from '../Map';
 
 /* TODO: Refactoring and Optimization preformance */
+/* Complete? */
 
 class App extends PureComponent {
   constructor() {
@@ -16,7 +17,6 @@ class App extends PureComponent {
         id: 0,
         coordinates: [55.76, 37.64],
       }],
-      polyline: [[55.76, 37.64]],
     }
   }
 
@@ -26,23 +26,20 @@ class App extends PureComponent {
     });
   }
   
-  handleDragMarkers = (event, i) => {//.originalEvent.originalEvent.originalEvent.newCoordinates
+  handleDragMarkers = (event, id) => {
     event.stopPropagation();
     const newCords = event.originalEvent.target.geometry._coordinates;
 
     let listMarkers = [...this.state.listMarkers];
     listMarkers.some((marker, index) => {
-      if (marker.id === i) {
+      if (marker.id === id) {
         listMarkers.splice(index, 1, {
-          id: i,
+          id: id,
           coordinates: newCords,
         });
 
-        const polyline = this.getPolyline(listMarkers);
-
         this.setState({
           listMarkers,
-          polyline,
         });
 
         return true;
@@ -52,7 +49,7 @@ class App extends PureComponent {
     return 0;
   }
 
-  handleInputSumbit = (event) => {
+  handleInputSumbit = event => {
     event.preventDefault();
     let listMarkers = [...this.state.listMarkers];
     let cords;
@@ -69,13 +66,11 @@ class App extends PureComponent {
     };
 
     listMarkers.push(newMarker);
-    const polyline = this.getPolyline(listMarkers);
 
-    this.setState(prevState => ({
+    this.setState({
       cords: '',
       listMarkers,
-      polyline,
-    }));
+    });
   }
 
   getMarkerId(lengthList) {
@@ -105,8 +100,6 @@ class App extends PureComponent {
   }
 
   getPolyline = listMarkers => {
-    //let polyline;
-
     const polyline = listMarkers.map(marker => {
       return marker.coordinates;
     });
@@ -114,17 +107,15 @@ class App extends PureComponent {
     return polyline;
   }
 
-  deleteMarker = i => {
+  deleteMarker = id => {
     let listMarkers = [...this.state.listMarkers];
-    let polyline;
-    //listMarkers.splice(i, 1);
+
     listMarkers.forEach((marker, index) => {
-      if (marker.id === i) {
+      if (marker.id === id) {
         listMarkers.splice(index, 1);
-        polyline = this.getPolyline(listMarkers);
+
         this.setState({
           listMarkers,
-          polyline
         });
 
         return 0;
@@ -133,10 +124,8 @@ class App extends PureComponent {
   }
 
   handleState = listMarkers => {
-    const polyline = this.getPolyline(listMarkers);
     this.setState({
       listMarkers,
-      polyline,
     }); //[state]: state (типо перегрузка. что б можно было любой аргумент вызывать для change state)
   }
 
@@ -159,7 +148,7 @@ class App extends PureComponent {
           <div className="col-7">
             <Map 
               listMarkers={this.state.listMarkers}
-              polyline={this.state.polyline}
+              getPolyline={this.getPolyline}
               handleDragMarkers={this.handleDragMarkers}
             />
           </div>

@@ -4,7 +4,7 @@ import { YMaps, Map, Placemark, Polyline } from "react-yandex-maps";
 class YandexMap extends PureComponent {
 
   render() {
-    const { listMarkers, polyline, handleDragMarkers } = this.props;
+    const { listMarkers, getPolyline, handleDragMarkers } = this.props;
     const mapState = {
       center: listMarkers.length > 0 ? listMarkers[listMarkers.length - 1].coordinates : [55.76, 37.64],
       zoom: 9
@@ -36,7 +36,7 @@ class YandexMap extends PureComponent {
           }
           <Polyline
             geometry={{
-              coordinates: polyline,
+              coordinates: getPolyline(listMarkers),
             }}
             options={{
               strokeColor: '#000000',

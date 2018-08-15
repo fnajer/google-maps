@@ -16,7 +16,6 @@ class YandexMap extends PureComponent {
         });
 
         this.props.handleState(listMarkers);
-
         return true;
       }
       return false;
@@ -33,16 +32,12 @@ class YandexMap extends PureComponent {
   }
 
   render() {
-    const { listMarkers } = this.props;
-    const mapState = {
-      center: listMarkers.length > 0 ? listMarkers[listMarkers.length - 1].coordinates : [55.76, 37.64],
-      zoom: 9
-    };
+    const { listMarkers, mapParams } = this.props;
 
     return (
       <YMaps>
         <Map
-          state={mapState}
+          state={mapParams}
           width="400px"
           height="400px"
         >
@@ -58,8 +53,8 @@ class YandexMap extends PureComponent {
                 options={{
                   draggable: true,
                 }}
-                //onGeometryChange={handleDragMarkers}
-                onDragEnd={(event) => this.handleDragMarkers(event, marker.id)}
+                //onDragEnd={this.handleDragEnd}
+                onGeometryChange={(event) => this.handleDragMarkers(event, marker.id)}
               />
             ))
           }

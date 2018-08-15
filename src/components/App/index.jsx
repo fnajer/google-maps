@@ -4,7 +4,7 @@ import MarkerInput from '../MarkerInput';
 import ListMarkers from '../ListMarkers';
 import Map from '../Map';
 
-/* TODO: Refactoring and Optimization preformance */
+/* TODO: Refactoring && Optimization performance */
 /* Complete? */
 
 class App extends PureComponent {
@@ -44,11 +44,20 @@ class App extends PureComponent {
 
     listMarkers.push(newMarker);
 
+    const center = listMarkers[listMarkers.length - 1].coordinates;
+    const params = Object.assign({}, this.mapParams, { center: center });
+    this.mapParams = params;
+
     this.setState({
       cords: '',
       listMarkers,
     });
   }
+
+  mapParams = {
+    center: [55.76, 37.64],
+    zoom: 9,
+  };
 
   getMarkerId(lengthList) {
     if (lengthList > 0) {
@@ -95,7 +104,7 @@ class App extends PureComponent {
   handleState = listMarkers => {
     this.setState({
       listMarkers,
-    }); //[state]: state (типо перегрузка. что б можно было любой аргумент вызывать для change state)
+    });
   }
 
   render() {
@@ -117,6 +126,7 @@ class App extends PureComponent {
           <div className="col-7">
             <Map 
               listMarkers={this.state.listMarkers}
+              mapParams={this.mapParams}
               handleState={this.handleState}
             />
           </div>

@@ -16,6 +16,14 @@ class App extends PureComponent {
       listMarkers: [{
         id: 0,
         coordinates: [55.76, 37.64],
+      },
+      {
+        id: 1,
+        coordinates: [55.86, 37.84],
+      },
+      {
+        id: 2,
+        coordinates: [55.76, 37.74],
       }],
     }
   }
